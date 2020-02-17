@@ -55,6 +55,18 @@ namespace AutomaticGradingSoftware
             // For now, just directly copy matrixOriginal to matrixProcessed
             matrixProcessed = matrixOriginal;
 
+            // Test: Convert all black pixels to white pixels
+            for (int i = 0; i < matrixProcessed.GetLength(0) - 1; i++)
+            {
+                for (int j = 0; j < matrixProcessed.GetLength(1) - 1; j++)
+                {
+                    if (matrixOriginal[i, j].R == 1 && matrixOriginal[i, j].G == 1 && matrixOriginal[i, j].B == 1)
+                    {
+                        matrixProcessed[i, j] = Color.FromArgb(255, 255, 255);
+                    }
+                }
+            }
+
         }
 
         public void convertMatrixToBitmap()
