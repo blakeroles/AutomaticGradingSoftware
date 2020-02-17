@@ -1,6 +1,7 @@
-/bin/*
+/AutomaticGradingSoftware/bin/*
 /AutomaticGradingSoftware/obj/*
 /.vs/*
 /publish/*
 /HouseHuntingApp.*
 /houseHuntingApp_*
+/AutomaticGradingSoftware/TestImages/*

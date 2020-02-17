@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,6 @@ namespace AutomaticGradingSoftware
         {
             this.bmpOriginal = new Bitmap(filePathOriginal);
             this.bmpProcessed = null;
-            this.matrixOriginal = new Color[bmpOriginal.Height, bmpOriginal.Width];
-            this.matrixProcessed = null;
             this.isMasterDocument = isMasterDocument;
             this.documentOwner = documentOwner;
             this.filePathProcessed = filePathProcessed;
@@ -35,24 +34,47 @@ namespace AutomaticGradingSoftware
 
         public void convertBitmapToMatrix()
         {
-            
+
+            matrixOriginal = new Color[bmpOriginal.Height, bmpOriginal.Width];
+            for (int i = 0; i <= this.bmpOriginal.Height - 1; i++)
+            {
+                for (int j = 0; j <= this.bmpOriginal.Width - 1; j++)
+                {
+                    Console.WriteLine("i = " + i + ", j = " + j);
+                    matrixOriginal[i, j] = bmpOriginal.GetPixel(j, i);
+
+                }
+            }
+
+
+
         }
 
         public void convertMatrixToMatrix()
         {
             // For now, just directly copy matrixOriginal to matrixProcessed
-            this.matrixProcessed = this.matrixOriginal;
+            matrixProcessed = matrixOriginal;
 
         }
 
         public void convertMatrixToBitmap()
         {
+            bmpProcessed = new Bitmap(bmpOriginal.Width, bmpOriginal.Height);
+            for (int i = 0; i < this.bmpOriginal.Height - 1; i++)
+            {
+                for (int j = 0; j < this.bmpOriginal.Width - 1; j++)
+                {
+                    Console.WriteLine("i = " + i + ", j = " + j);
+                    this.bmpProcessed.SetPixel(j, i, this.matrixProcessed[i, j]);
 
+
+                }
+            }
         }
 
         public void saveBitmapToFile()
         {
-
+            this.bmpProcessed.Save(this.filePathProcessed, ImageFormat.Bmp);
         }
 
 
